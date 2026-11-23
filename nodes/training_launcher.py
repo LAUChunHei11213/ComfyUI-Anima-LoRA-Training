@@ -109,6 +109,10 @@ class AnimaTrainingLauncher:
                 }),
                 "sample_sampler": (["euler", "euler_a", "ddim", "dpmsolver++", "dpmsingle", "pndm", "lms"],
                                     {"default": "euler"}),
+                "save_state": ("BOOLEAN", {
+                    "default": False,
+                    "tooltip": "Also save optimizer/training state next to each checkpoint so the run can be resumed. Costs hundreds of MB per epoch; only needed if you plan to resume."
+                }),
                 "dry_run": ("BOOLEAN", {
                     "default": False,
                     "tooltip": "Generate config and command but don't actually launch training."
@@ -509,6 +513,7 @@ class AnimaTrainingLauncher:
                         sample_every_n_steps: int = 0,
                         sample_every_n_epochs: int = 0,
                         sample_sampler: str = "euler",
+                        save_state: bool = False,
                         dry_run: bool = False) -> tuple:
         """Generate config and launch training."""
 
@@ -655,7 +660,7 @@ class AnimaTrainingLauncher:
             output_name=training_params.get("output_name", ""),
             # Resume
             resume=resume_from.strip() if resume_from else "",
-            save_state=True,
+            save_state=save_state,
             # Sampling
             sample_every_n_steps=sample_every_n_steps,
             sample_every_n_epochs=sample_every_n_epochs,

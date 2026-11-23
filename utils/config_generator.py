@@ -444,7 +444,7 @@ def generate_training_config(
     t5_tokenizer_path: str = "",
     # Resume
     resume: str = "",
-    save_state: bool = True,
+    save_state: bool = False,
     # Sampling
     sample_every_n_steps: int = 0,
     sample_every_n_epochs: int = 0,
