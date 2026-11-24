@@ -280,9 +280,11 @@ class AnimaSaveDataset:
             },
             "optional": {
                 "captions": ("STRING", {
+                    "forceInput": True,
                     "tooltip": "Caption per image; empty ones are skipped."
                 }),
                 "filenames": ("STRING", {
+                    "forceInput": True,
                     "tooltip": "Names to reuse, e.g. the filenames output of Load Images From Folder."
                 }),
             },
@@ -311,6 +313,8 @@ class AnimaSaveDataset:
 
         filenames = filenames or []
         captions = captions or []
+        if not captions:
+            print("[AnimaSaveDataset] captions input is not connected: writing images without .txt captions.")
 
         paths = []
         used = set()
